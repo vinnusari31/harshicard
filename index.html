@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Card</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffcccb; /* Change to desired background color */
+            margin: 0;
+            overflow: hidden; /* prevent scrolling */
+        }
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1; /* Place it behind the content */
+        }
+        .draggable {
+            position: absolute;
+            cursor: move;
+            touch-action: none; /* Disable default touch actions */
+        }
+        .photo {
+            width: 170px;
+            height: 170px;
+            border-radius: 20px;
+        }
+        .note {
+            width: 200px;
+            padding: 10px;
+            background-color: #ffeb3b;
+            border-radius: 5px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        .gif {
+            width: 350px; /* Set the size of the GIF */
+            height: auto;
+            position: absolute; /* Position it absolutely within the card */
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop class="background-video">
+        <source src="bgm video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+<div class="card" id="card">
+    <img src="photo2.jpg.jpg" alt="Photo 2" class="draggable photo" style="top: 290px; left: 570px; width: 150px; height: 190px;">
+    <img src="photo1.jpg.png" alt="Photo 1" class="draggable photo" style="top: 10px; left: 200px; width: 190px; height: 190px;">
+    <img src="side.png" alt="Photo 1" class="draggable photo" style="top: 300px; left: 10px; width: 250px; height: 300px;">
+    <img src="Boxes-PNG.png" alt="Photo 1" class="draggable photo" style="top: 450px; left: 1030px; width: 140px; height: 150px;">
+    <img src="giftbox.webp" alt="Photo 1" class="draggable photo" style="top: 450px; left: 0px; width: 150px; height: 150px;">
+    <img src="harshi01.png" alt="Photo 1" class="draggable photo" style="top: 220px; left: 240px; width: 200px; height: 200px;">
+    <img src="img1.jpg" alt="Photo 1" class="draggable photo" style="top: 50px; left: 25px; width: 150px; height: 220px;">
+    <img src="img 2.jpg" alt="Photo 1" class="draggable photo" style="top: 50px; left: 1120px; width: 150px; height: 220px;">
+    <img src="img3.jpg" alt="Photo 1" class="draggable photo" style="top: 220px; left: 870px; width: 190px; height: 230px;">
+    <img src="img4.png" alt="Photo 1" class="draggable photo" style="top: 10px; left: 930px; width: 170px; height: 190px;">
+    <img src="side.png" alt="Photo 1" class="draggable photo" style="top: 300px; left: 1000px; width: 270px; height: 300px;">
+    <div class="draggable note" style="top: 490px; left: 540px;">& please don't waste time and opportunity for ur great life Nanna </div>
+    <div class="draggable note" style="top: 490px; left: 540px;">i'm waiting for you to come georgia Nanna </div>
+    <div class="draggable note" style="top: 490px; left: 540px;">i just ask you one thing please don't ghost me That's it</div>
+    <div class="draggable note" style="top: 490px; left: 540px;">you are the one that i never wanna loose in life Nanna</div>
+    <div class="draggable note" style="top: 490px; left: 540px;">i'll always stand by your side at anycost </div>
+    <div class="draggable note" style="top: 490px; left: 540px;">okati mathram epatiki maradhu u'll be always my special person </div>
+    <div class="draggable note" style="top: 490px; left: 540px;">Nuvu situations ni easy ga handle cheyagalav Nanna jst patience ga vundu</div>
+    <div class="draggable note" style="top: 490px; left: 540px;">Kopam lo eppudu Harsh decisions tisukoku Nanna please </div>
+    <div class="draggable note" style="top: 490px; left: 540px;">Niku eppudu help kavali ana i want to be the 1st person to help you </div>
+    <div class="draggable note" style="top: 490px; left: 540px;">You have a maturity of understanding that i ever seen in Anyone Nanna </div>
+    <div class="draggable note" style="top: 490px; left: 540px;">i wanted you to be very happy no matter what!!!</div>
+    <div class="draggable note" style="top: 490px; left: 540px;">You're the best thing that ever happened to me.</div>
+    <div alt="note 1" class="draggable note" style="top: 490px; left: 540px;">wish you a Happy Birthday, Nanna!</div>
+    <div class="draggable note" style="top: 500px; left: 540px;"> Swipe for Notes--------->----------------------> </div>
+    <img src="gif.gif" alt="GIF" class="gif" style="top: 40px; left: 480px;"> <!-- Add your GIF here -->
+    <img src="dec2.png" alt="GIF" class="gif" style="top: 0px; left: 460px;"> <!--Add your GIF here -->
+</div>
+
+<audio id="background-music" src="bgm.mp3" autoplay loop> </audio> <!-- Autoplay and loop the music -->
+</div> 
+
+<script>
+    const draggables = document.querySelectorAll('.draggable');
+    let activeElement = null;
+    let initialX = 0;
+    let initialY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    draggables.forEach(element => {
+        element.addEventListener('mousedown', dragStart);
+        element.addEventListener('touchstart', dragStart, { passive: false });
+    });
+
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('touchmove', drag, { passive: false });
+
+    document.addEventListener('mouseup', dragEnd);
+    document.addEventListener('touchend', dragEnd);
+
+    function dragStart(e) {
+        if (e.target.classList.contains('draggable')) {
+            activeElement = e.target;
+
+            if (e.type === 'touchstart') {
+                initialX = e.touches[0].clientX - (activeElement.dataset.x ? parseFloat(activeElement.dataset.x) : 0);
+                initialY = e.touches[0].clientY - (activeElement.dataset.y ? parseFloat(activeElement.dataset.y) : 0);
+            } else {
+                initialX = e.clientX - (activeElement.dataset.x ? parseFloat(activeElement.dataset.x) : 0);
+                initialY = e.clientY - (activeElement.dataset.y ? parseFloat(activeElement.dataset.y) : 0);
+            }
+
+            activeElement.style.zIndex = '1000';
+        }
+    }
+
+    function drag(e) {
+        if (activeElement) {
+            e.preventDefault();
+
+            if (e.type === 'touchmove') {
+                currentX = e.touches[0].clientX - initialX;
+                currentY = e.touches[0].clientY - initialY;
+            } else {
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+            }
+
+            offsetX = currentX;
+            offsetY = currentY;
+
+            setTranslate(currentX, currentY, activeElement);
+        }
+    }
+
+    function dragEnd() {
+        if (activeElement) {
+            activeElement.dataset.x = offsetX;
+            activeElement.dataset.y = offsetY;
+
+            activeElement.style.zIndex = '1';
+            activeElement = null;
+        }
+    }
+
+    function setTranslate(xPos, yPos, el) {
+        el.style.transform = `translate(${xPos}px, ${yPos}px)`;
+    }
+
+    const audio = document.getElementById('background-music');
+    
+    // Automatically start playing music when the page loads (optional)
+    window.addEventListener('load', () => {
+        audio.play();
+        });
+</script>
+
+</body>
+</html>
